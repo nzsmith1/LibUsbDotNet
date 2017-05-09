@@ -22,7 +22,6 @@
 using System;
 using System.Runtime.InteropServices;
 using LibUsbDotNet.Main;
-using MonoLibUsb.Descriptors;
 
 #pragma warning disable 649
 
@@ -41,22 +40,22 @@ namespace LibUsbDotNet.Descriptors
         /// <summary>
         /// Total length in bytes of data returned
         /// </summary>
-        public readonly short TotalLength;
+        public short TotalLength { get; protected set; }
 
         /// <summary>
         /// Number of Interfaces
         /// </summary>
-        public readonly byte InterfaceCount;
+        public byte InterfaceCount { get; protected set; }
 
         /// <summary>
         /// Value to use as an argument to select this Configuration
         /// </summary>
-        public readonly byte ConfigID;
+        public byte ConfigID { get; protected set; }
 
         /// <summary>
         /// Index of String Descriptor describing this Configuration
         /// </summary>
-        public readonly byte StringIndex;
+        public byte StringIndex { get; protected set; }
 
         /// <summary>
         /// D7 Reserved, set to 1. (USB 1.0 Bus Powered)
@@ -64,24 +63,12 @@ namespace LibUsbDotNet.Descriptors
         /// D5 Remote Wakeup
         /// D4..0 Reserved, set to 0.
         /// </summary>
-        public readonly byte Attributes;
+        public byte Attributes { get; protected set; }
 
         /// <summary>
         /// Maximum Power Consumption in 2mA units 
         /// </summary>
-        public readonly byte MaxPower;
-
-        internal UsbConfigDescriptor(MonoUsbConfigDescriptor descriptor)
-        {
-            Attributes = descriptor.bmAttributes;
-            ConfigID = descriptor.bConfigurationValue;
-            DescriptorType = descriptor.bDescriptorType;
-            InterfaceCount = descriptor.bNumInterfaces;
-            Length = descriptor.bLength;
-            MaxPower = descriptor.MaxPower;
-            StringIndex = descriptor.iConfiguration;
-            TotalLength = (short) descriptor.wTotalLength;
-        }
+        public byte MaxPower { get; protected set; }
 
         internal UsbConfigDescriptor() { }
 

@@ -22,8 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-
-
 using LibUsbDotNet.Descriptors;
 using MonoLibUsb.Profile;
 
@@ -34,7 +32,7 @@ namespace MonoLibUsb.Descriptors
     ///All multiple-byte fields are represented in host-endian format.</summary>
     /// <example><code source="..\MonoLibUsb\MonoUsb.ShowConfig\ShowConfig.cs" lang="cs"/></example>
     [StructLayout(LayoutKind.Sequential, Pack = MonoUsbApi.LIBUSB_PACK)]
-    public class MonoUsbConfigDescriptor
+    public class MonoUsbConfigDescriptor : UsbConfigDescriptor
     {
         internal MonoUsbConfigDescriptor()
         {
@@ -47,6 +45,15 @@ namespace MonoLibUsb.Descriptors
         public MonoUsbConfigDescriptor(MonoUsbConfigHandle configHandle)
         {
             Marshal.PtrToStructure(configHandle.DangerousGetHandle(), this);
+
+            Attributes = bmAttributes;
+            ConfigID = bConfigurationValue;
+            DescriptorType = bDescriptorType;
+            InterfaceCount = bNumInterfaces;
+            Length = bLength;
+            MaxPower = bMaxPower;
+            StringIndex = iConfiguration;
+            TotalLength = wTotalLength;
         }
 
         ///<summary> Size of this descriptor (in bytes)</summary>
@@ -71,7 +78,7 @@ namespace MonoLibUsb.Descriptors
         public readonly byte bmAttributes;
 
         ///<summary> Maximum power consumption of the USB device from this bus in this configuration when the device is fully opreation. Expressed in units of 2 mA.</summary>
-        public readonly byte MaxPower;
+        public readonly byte bMaxPower;
 
         ///<summary> Array of interfaces supported by this configuration. The length of this array is determined by the bNumInterfaces field.</summary>
         private readonly IntPtr pInterfaces;
