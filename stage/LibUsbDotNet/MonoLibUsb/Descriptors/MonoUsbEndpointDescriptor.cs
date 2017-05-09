@@ -31,8 +31,11 @@ namespace MonoLibUsb.Descriptors
     /// All multiple-byte fields are represented in host-endian format.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = MonoUsbApi.LIBUSB_PACK)]
-    public class MonoUsbEndpointDescriptor
+    public class MonoUsbEndpointDescriptor:UsbEndpointDescriptor
     {
+
+        internal MonoUsbEndpointDescriptor() { }
+
         ///<summary> Size of this descriptor (in bytes)</summary>
         public readonly Byte bLength;
 
@@ -73,5 +76,14 @@ namespace MonoLibUsb.Descriptors
                 return bytes;
             }
         }
+
+        public override byte Attributes { get => bmAttributes; }
+        public override DescriptorType DescriptorType { get => bDescriptorType; }
+        public override byte EndpointID { get => bEndpointAddress; }
+        public override byte Interval { get => bInterval; }
+        public override byte Length { get => bLength; }
+        public override short MaxPacketSize { get => wMaxPacketSize; }
+        public override byte SynchAddress { get => bSynchAddress; }
+
     }
 }

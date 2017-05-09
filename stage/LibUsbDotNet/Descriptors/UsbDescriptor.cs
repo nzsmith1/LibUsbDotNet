@@ -52,12 +52,12 @@ namespace LibUsbDotNet.Descriptors
         /// <summary>
         /// Length of structure reported by the associated usb device.
         /// </summary>
-        public byte Length;
+        public virtual byte Length { get; protected set; }
 
         /// <summary>
         /// Type of structure reported by the associated usb device.
         /// </summary>
-        public DescriptorType DescriptorType;
+        public virtual DescriptorType DescriptorType {get; protected set;}
 
         /// <summary>
         /// String representation of the UsbDescriptor class.

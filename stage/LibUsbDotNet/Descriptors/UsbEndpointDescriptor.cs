@@ -46,7 +46,7 @@ namespace LibUsbDotNet.Descriptors
         /// Bits 4..6b Reserved. Set to Zero
         /// Bits 7 Direction 0 = Out, 1 = In (Ignored for Control Endpoints)
         /// </summary>
-        public readonly byte EndpointID;
+        public virtual byte EndpointID { get; protected set; }
 
         /// <summary>
         /// Bits 0..1 Transfer Type 
@@ -68,40 +68,31 @@ namespace LibUsbDotNet.Descriptors
         /// 10 = Explicit Feedback Data Endpoint
         /// 11 = Reserved
         /// </summary>
-        public readonly byte Attributes;
+        public virtual byte Attributes { get; protected set; }
 
         /// <summary>
         /// Maximum Packet Size this endpoint is capable of sending or receiving
         /// </summary>
-        public readonly short MaxPacketSize;
+        public virtual short MaxPacketSize { get; protected set; }
 
         /// <summary>
         /// Interval for polling endpoint data transfers. Value in frame counts. Ignored for Bulk and Control Endpoints. Isochronous must equal 1 and field may range from 1 to 255 for interrupt endpoints.
         /// </summary>
-        public readonly byte Interval;
+        public virtual byte Interval { get; protected set; }
 
         /// <summary>
         /// Audio endpoint specific.
         /// </summary>
-        public readonly byte Refresh;
+        public virtual byte Refresh { get; protected set; }
 
         /// <summary>
         /// Audio endpoint specific.
         /// </summary>
-        public readonly byte SynchAddress;
+        public virtual byte SynchAddress { get; protected set; }
 
         internal UsbEndpointDescriptor() { }
 
-        internal UsbEndpointDescriptor(MonoUsbEndpointDescriptor descriptor)
-        {
-            Attributes = descriptor.bmAttributes;
-            DescriptorType = descriptor.bDescriptorType;
-            EndpointID = descriptor.bEndpointAddress;
-            Interval = descriptor.bInterval;
-            Length = descriptor.bLength;
-            MaxPacketSize = (short) descriptor.wMaxPacketSize;
-            SynchAddress = descriptor.bSynchAddress;
-        }
+
 
         ///<summary>
         ///Returns a <see cref="T:System.String"/> that represents the current <see cref="UsbEndpointDescriptor"/>.
